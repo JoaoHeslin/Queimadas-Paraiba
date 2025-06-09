@@ -18,7 +18,7 @@ df.loc[df["risco_fogo"] < 0, "risco_fogo"] = 0
 df.loc[df["potencia_radiativa_fogo"] < 0, "potencia_radiativa_fogo"] = 0
 
 #Substituindo valores nulos pela média do grupo de cidade e mês,
-#pois preserva variações locais, tornando o preenchimento mais preciso e representativo.
+#pois preserva variações locais, tornando o preenchimento mais preciso e consistente.
 df["dias_sem_chuva"] = df.groupby(["id_municipio", "mes"])["dias_sem_chuva"].transform(lambda x: x.fillna(int(x.mean())) if not x.isna().all() else 0).astype(int)
 colunas = ["risco_fogo", "precipitacao", "potencia_radiativa_fogo"]
 for col in colunas:
